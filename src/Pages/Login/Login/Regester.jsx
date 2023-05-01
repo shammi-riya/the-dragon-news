@@ -1,10 +1,13 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { AuthContext } from '../../../Provider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const Regester = () => {
     const { createUser } = useContext(AuthContext)
+    const [acceptepted, setaceepted] = useState(false)
+
 
 
     const handleRegistrationFrom = (e) => {
@@ -18,19 +21,22 @@ const Regester = () => {
         console.log(email, password, photo, name);
 
 
-        createUser(email,password)
-        .then(result=>{
-          const user =result.user;
-          console.log(user);
-        })
-        .catch(error=>{
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode,errorMessage);
-        })
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            })
     }
 
 
+    const handleAkcepted = (event) => {
+        setaceepted(event.target.checked)
+    }
 
 
     return (
@@ -68,11 +74,20 @@ const Regester = () => {
                         placeholder="Password" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Accept term condition" />
+                    <Form.Check
+                        onClick={handleAkcepted}
+                        name="accept"
+                        type="checkbox"
+                        label={<>Accept term <Link to="/terms">condition </Link> </>} />
                 </Form.Group>
-                <Button className='w-100' variant="dark" type="submit">
+                <Button disabled={!acceptepted}
+                    className='w-100' 
+                    variant="dark" 
+                    type="submit">
                     Regestar
                 </Button>
+
+                <p>Already have an account please <Link to="/login">Login</Link></p>
 
             </Form>
         </Container>

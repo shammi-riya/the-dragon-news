@@ -9,6 +9,7 @@ import Loginlayout from '../LayOut/Loginlayout';
 import Login from '../Pages/Login/Login/Login';
 import Regester from '../Pages/Login/Login/Regester';
 import Privetroute from './Privetroute';
+import Term from '../Pages/Shared/Term/Term';
 
 const routes = createBrowserRouter([
 
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
       {
         path: 'regester',
         element: <Regester></Regester>
+      },
+      {
+        path: 'terms',
+        element: <Term></Term>
       }
 
     ]
